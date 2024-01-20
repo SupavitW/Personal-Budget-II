@@ -1,0 +1,252 @@
+openapi: 3.0.1
+info:
+  title: Personal Budget II API
+  version: 1.0.0
+  description: An api to work with Codecademy's Personal Budget II
+paths:
+  /envelopes:
+    summary: Get all the envelopes
+    description: >-
+      This path is used to retrieve al envelopes and its relevant data from the
+      database.
+    get:
+      summary: Get all the envelopes
+      description: Retrieve all the envelopes along with their infomation.
+      operationId: get_envelopes
+      responses:
+        '200':
+          content:
+            application/json:
+              examples:
+                envelopes:
+                  value: >-
+                    {"envelopes":
+                    [{"id":"001","title":"Games","budget": 10000, "user_id":
+                    "001"},
+                    {"id":"002","title":"Foods","budget": 10000, "user_id":
+                    "001"},
+                    {"id":"003","title":"Clothes","budget": 10000, "user_id":
+                    "001"}]}
+          description: Request succeed
+      tags:
+        - Envelopes
+  /envelope/{id}:
+    summary: Get a specific envelope with matching id
+    description: >-
+      This path is used to retrieve a specific envelope having id that matches
+      with the parameter :id.
+    get:
+      summary: Get a specific envelope
+      description: Retrieve the id matching envelope and its information
+      operationId: get_envelope
+      parameters:
+        - name: id
+          in: path
+          description: The id of the envelope.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              examples:
+                envelope_id:
+                  value: >-
+                    {"id": "001", "title": "Games", "budget": 10000, "user_id":
+                    "001"}
+          description: Request succeed
+        '404':
+          content:
+            text/plain; charset=utf-8:
+              examples:
+                Error:
+                  value: No envelope found
+          description: Request fail
+      tags:
+        - Envelope_id
+  /createEnvelope:
+    summary: POST a new envelope to the database
+    description: >-
+      This path is used to create a new envelope including json data to the
+      database.
+    post:
+      summary: Create a new envelope
+      description: This creates a new envelope with necessary information from req.body.
+      operationId: new_envelope
+      requestBody:
+        description: A new envelope object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Envelope'
+      responses:
+        '400':
+          content:
+            text/plain; charset=utf-8:
+              examples:
+                Error:
+                  value: Invalid Request
+          description: Request succeed
+        '201':
+          content:
+            text/plain; charset=utf-8:
+              examples:
+                Message:
+                  value: Envelope Created
+          description: Request fail
+      tags:
+        - New Envelope
+  /updateEnvelope/{id}:
+    summary: 'PUT the existing envelope identified by id with new data '
+    description: This path is used to update the existing envelope's data with matching id.
+    put:
+      summary: Update the envelope
+      description: This is used to update the information of the envelope with matching id
+      operationId: update_envelope
+      parameters:
+        - name: id
+          in: path
+          description: The id of the envelope.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: A new envelope object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Envelope'
+      responses:
+        '400':
+          content:
+            text/plain; charset=utf-8:
+              examples:
+                Error:
+                  value: Invalid Request
+          description: Request fail
+        '404':
+          content:
+            text/plain; charset=utf-8:
+              examples:
+                Error:
+                  value: No envelope found
+          description: Request fail
+        '200':
+          content:
+            text/plain; charset=utf-8:
+              examples:
+                Message:
+                  value: Envelope Updated
+          description: Request fail
+      tags:
+        - Update Envelope
+  /deleteEnvelope/{id}:
+    summary: DELETE the envelope with matching id
+    description: >-
+      This path is used to delete the envelope that has the matching id with :id
+      parameter.
+    delete:
+      summary: Delete an envelope
+      description: This is used to delete the envelope with its data.
+      operationId: delete_envelope
+      parameters:
+        - name: id
+          in: path
+          description: The id of the envelope.
+          required: true
+          schema:
+            type: string
+      responses:
+         '404':
+          content:
+            text/plain; charset=utf-8:
+              examples:
+                Error:
+                  value: No envelope found
+          description: Request succeed
+         '204':
+          content:
+            text/plain; charset=utf-8:
+              examples:
+                Message:
+                  value: Envelope Deleted
+          description: Request fail
+      tags:
+        - Delete Envelope
+  /transfer/{giverId}/{recieverId}:
+    summary: Post request to tranfer money from one envelope to another
+    description: >-
+      This path is used to tranfer money from one envelope to another. The giver
+      and reciever are selected through relevant parameter id.
+    post:
+      summary: Tranfer the budget from the giver to reciever
+      description: >-
+        This is used to tranfer the budget of the giver envelope to reciever
+        envelope
+      operationId: tranfer_envelope
+      parameters:
+        - name: giverId
+          in: path
+          description: The id of the giver envelope.
+          required: true
+          schema:
+            type: string
+        - name: recieverId
+          in: path
+          description: The id of the receiver envelope.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: An information about the transaction
+        content:
+          application/json:
+            schema:
+                type: object
+                properties:
+                  giver_id:
+                    type: string
+                  receiver_id:
+                    type: string
+                  amount:
+                    type: integer
+      responses:
+        '404':
+          content:
+            text/plain; charset=utf-8:
+              examples:
+                Error:
+                  value: No envelope found
+          description: Request fail
+        '400':
+          content:
+            text/plain; charset=utf-8:
+              examples:
+                Error:
+                  value: Invalid Request
+          description: Request fail
+        '201':
+          content:
+            text/plain; charset=utf-8:
+              examples:
+                Message:
+                  value: Transaction succeed
+          description: Request fail
+      tags:
+        - Transfer
+components:
+  schemas:
+    Envelope:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        budget:
+          type: integer
+        user_id:
+          type: string
+      xml:
+        name: Envelope
