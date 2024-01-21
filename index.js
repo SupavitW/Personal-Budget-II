@@ -15,6 +15,10 @@ app.use(cors());
 // Add middware for parsing request bodies here:
 app.use(bodyParser.json());
 
+// Mount api router
+const budgetRouter = require('./api/budget');
+app.use('/', budgetRouter);
+
 //// Error Handling Middle Ware 
 const errorHandler = (err, req, res, next) => {
     if (!err.status) {
@@ -34,11 +38,9 @@ const errorHandler = (err, req, res, next) => {
   };
   app.use(errorHandler);
 
-app.get('/', (req, res, next) => {
-    res.status(200).send('Server is working fine');
-});
-
 // Server starting
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
 });
+
+module.exports = app;

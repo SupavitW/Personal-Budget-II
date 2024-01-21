@@ -4,7 +4,7 @@ info:
   version: 1.0.0
   description: An api to work with Codecademy's Personal Budget II
 paths:
-  /envelopes:
+  /getEnvelopes:
     summary: Get all the envelopes
     description: >-
       This path is used to retrieve al envelopes and its relevant data from the
@@ -30,7 +30,7 @@ paths:
           description: Request succeed
       tags:
         - Envelopes
-  /envelope/{id}:
+  /getEnvelope/{id}:
     summary: Get a specific envelope with matching id
     description: >-
       This path is used to retrieve a specific envelope having id that matches
