@@ -34,7 +34,7 @@ const errorHandler = (err, req, res, next) => {
     console.error(err.stack);
   
     // Send a response to the client
-    res.status(err.status).send(err.message);
+    res.status(err.status).json(err.message);
   };
   app.use(errorHandler);
 

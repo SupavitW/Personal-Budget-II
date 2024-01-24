@@ -125,7 +125,7 @@ paths:
                 Error:
                   value: Invalid Request
           description: Request fail
-        '404':
+        '400':
           content:
             text/plain; charset=utf-8:
               examples:
@@ -174,7 +174,7 @@ paths:
           description: Request fail
       tags:
         - Delete Envelope
-  /transfer/{giverId}/{recieverId}:
+  /transfer/{giverId}/{recieverId}/{amount}:
     summary: Post request to tranfer money from one envelope to another
     description: >-
       This path is used to tranfer money from one envelope to another. The giver
@@ -198,6 +198,12 @@ paths:
           required: true
           schema:
             type: string
+        - name: amount
+          in: path
+          description: The amount of money tranfer.
+          required: true
+          schema:
+            type: integer
       requestBody:
         description: An information about the transaction
         content:
