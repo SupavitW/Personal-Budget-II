@@ -8,6 +8,12 @@ const { getEnvelopes,
         deleteEnvelope, 
         tranferEnvelope } = require('../db/queries');
 
+// Render Health Check Path
+
+budgetRouter.get("/health", (req, res) => { 
+  res.sendStatus(200); 
+}); 
+
 // Router parameter for id
 budgetRouter.param('id', async (req, res, next, id) => {
   try {
