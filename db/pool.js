@@ -1,12 +1,9 @@
 const Pool = require('pg').Pool
+const DATABASE_URL = process.env.DATABASE_URL;
 
 // Pool Configuration
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'Personal Budget II',
-  password: 'postgres',
-  port: 5432,
+  connectionString: DATABASE_URL,
 });
 
 const query = async (text, params) => {
