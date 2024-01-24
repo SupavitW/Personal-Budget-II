@@ -1,6 +1,6 @@
 # Codeacademy Project: Personal-Budget-II
 This project aims to create a server to serve as a personal budget website in reference to **envelope method**. 
-In addition, it extends previous version by using **Postgres** as database while deploying the project on cloud hosting service, **Render**
+In addition, it extends previous version by using **Postgres** as database while deploying the project on cloud hosting service, **Render**.
 This project is developed by TDD method.
 
 ### Project Objectives
