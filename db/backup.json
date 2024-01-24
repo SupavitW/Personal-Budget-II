@@ -1,0 +1,4 @@
+{"envelopes":
+[{"id":"001","title":"Games","budget": 10000, "user_id": "001"},
+ {"id":"002","title":"Foods","budget": 10000, "user_id": "001"},
+ {"id":"003","title":"Clothes","budget": 10000, "user_id":"001"}]}
